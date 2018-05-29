@@ -209,9 +209,9 @@ class sptensor(tensor_mixin):
             )
         M = prod([self.shape[r] for r in rdims])
         N = prod([self.shape[c] for c in cdims])
-        ridx = _build_idx(self.subs, self.vals, rdims, self.shape)
-        cidx = _build_idx(self.subs, self.vals, cdims, self.shape)
-        return unfolded_sptensor((self.vals, (ridx, cidx)), (M, N), rdims, cdims, self.shape)
+        ridx = _build_idx(self.subs, np.squeeze(self.vals), rdims, self.shape)
+        cidx = _build_idx(self.subs, np.squeeze(self.vals), cdims, self.shape)
+        return unfolded_sptensor((np.squeeze(self.vals), (ridx, cidx)), (M, N), rdims, cdims, self.shape)
 
     @inherit_docstring_from(tensor_mixin)
     def uttkrp(self, U, mode):
